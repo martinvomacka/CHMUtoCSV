@@ -97,4 +97,27 @@ public class Updater {
         }
         return actualValue;
     }
+    
+    public void readValues(StaniceData stanice) {
+        try {
+            BufferedReader webpagePlaintext = new BufferedReader(new InputStreamReader(webpage.openStream(), "CP1250"));
+            String inputLine;
+            int i=0;
+            int daylimit=7;
+            while ((inputLine = webpagePlaintext.readLine()) != null && daylimit>0) {
+                if(inputLine.contains("td class=\"sdt\"")) {
+                    i++;
+                    if(i==2){
+                        inputLine=inputLine.substring(inputLine.indexOf("\">")+2);
+                        stanice.pushValue(Float.valueOf(inputLine.substring(0,inputLine.indexOf("<"))));
+                        i=0;
+                        daylimit--;
+                    }
+                }
+            }
+            webpagePlaintext.close();
+        } catch (IOException ex) {
+            Logger.getLogger(Updater.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
 }

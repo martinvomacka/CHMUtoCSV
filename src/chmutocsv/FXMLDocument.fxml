@@ -6,11 +6,16 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="chmutocsv.FXMLDocumentController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="483.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="chmutocsv.FXMLDocumentController">
    <children>
-      <Label fx:id="statusBar" layoutY="383.0" prefHeight="17.0" prefWidth="600.0" style="-fx-background-color: #bbbbbb;" />
-      <Button layoutX="132.0" layoutY="357.0" mnemonicParsing="false" onAction="#updateButtonAction" text="Aktualizuj" />
-      <Button fx:id="checkUpdate" layoutY="357.0" mnemonicParsing="false" onAction="#checkUpdateButtonAction" text="Zkontroluj aktualizace" />
+      <Label fx:id="statusBar" layoutY="466.0" prefHeight="17.0" prefWidth="600.0" style="-fx-background-color: #bbbbbb;" />
+      <Button layoutX="518.0" layoutY="154.0" mnemonicParsing="false" onAction="#updateButtonAction" text="Aktualizuj" />
+      <Button fx:id="checkUpdate" layoutX="454.0" layoutY="128.0" mnemonicParsing="false" onAction="#checkUpdateButtonAction" text="Zkontroluj aktualizace" />
+      <Button layoutX="548.0" layoutY="179.0" mnemonicParsing="false" onAction="#testRead" text="Test" />
+      <TreeView fx:id="tSeznam" prefHeight="466.0" prefWidth="204.0" />
+      <ListView fx:id="lVybrane" layoutX="270.0" prefHeight="440.0" prefWidth="184.0" />
+      <Button layoutX="320.0" layoutY="441.0" mnemonicParsing="false" onAction="#bOdebratVsePressed" text="Odstranit vše" />
+      <Button layoutX="215.0" layoutY="141.0" mnemonicParsing="false" onAction="#bOdebratPressed" text="&lt;----" />
+      <Button layoutX="215.0" layoutY="104.0" mnemonicParsing="false" onAction="#bPridatPressed" text="----&gt;" />
    </children>
 </AnchorPane>
