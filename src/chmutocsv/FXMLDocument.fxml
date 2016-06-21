@@ -12,10 +12,20 @@
       <Button layoutX="518.0" layoutY="154.0" mnemonicParsing="false" onAction="#updateButtonAction" text="Aktualizuj" />
       <Button fx:id="checkUpdate" layoutX="454.0" layoutY="128.0" mnemonicParsing="false" onAction="#checkUpdateButtonAction" text="Zkontroluj aktualizace" />
       <Button layoutX="548.0" layoutY="179.0" mnemonicParsing="false" onAction="#testRead" text="Test" />
-      <TreeView fx:id="tSeznam" prefHeight="466.0" prefWidth="204.0" />
-      <ListView fx:id="lVybrane" layoutX="270.0" prefHeight="440.0" prefWidth="184.0" />
+      <TreeView fx:id="tSeznam" layoutY="24.0" prefHeight="442.0" prefWidth="204.0" />
+      <ListView fx:id="lVybrane" layoutX="270.0" layoutY="24.0" prefHeight="416.0" prefWidth="184.0" />
       <Button layoutX="320.0" layoutY="441.0" mnemonicParsing="false" onAction="#bOdebratVsePressed" text="Odstranit vše" />
       <Button layoutX="215.0" layoutY="141.0" mnemonicParsing="false" onAction="#bOdebratPressed" text="&lt;----" />
       <Button layoutX="215.0" layoutY="104.0" mnemonicParsing="false" onAction="#bPridatPressed" text="----&gt;" />
+      <MenuBar prefHeight="25.0" prefWidth="600.0">
+        <menus>
+          <Menu mnemonicParsing="false" text="Menu">
+            <items>
+              <MenuItem mnemonicParsing="false" onAction="#updateButtonAction" text="Aktualizace stanic" />
+                  <MenuItem mnemonicParsing="false" onAction="#closeApp" text="Zavřít" />
+            </items>
+          </Menu>
+        </menus>
+      </MenuBar>
    </children>
 </AnchorPane>

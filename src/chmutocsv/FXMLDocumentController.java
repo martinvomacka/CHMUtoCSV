@@ -22,6 +22,7 @@ import javafx.scene.control.ListView;
 import javafx.scene.control.TreeItem;
 import javafx.scene.control.TreeView;
 import javafx.scene.paint.Color;
+import javafx.stage.Stage;
 
 /**
  *
@@ -33,6 +34,7 @@ public class FXMLDocumentController implements Initializable {
     private Object nacteneKraje[];
     private int nactenyPocet;
     public ArrayList<String> seznamVybranychStanic;
+    public ArrayList<StaniceData> nacteneStanice;
     private final XMLParser parser = new XMLParser(this);
     private final Updater kontrola = new Updater();
     public ObservableList<String> ob;
@@ -80,7 +82,7 @@ public class FXMLDocumentController implements Initializable {
             statusBar.setTextFill(Color.ORANGERED);
         }
         else {
-            statusBar.setText("Seznam stanic je aktuální.");
+            statusBar.setText("Seznam stanic je aktuální. Není potřeba aktualizace.");
             statusBar.setTextFill(Color.GREEN);
         }
     }
@@ -119,6 +121,10 @@ public class FXMLDocumentController implements Initializable {
             temp.setExpanded(false);
             root.getChildren().add(temp);
         }
+    }
+    
+    private void loadStaniceData(String nazevStanice, String nazevKraje) {
+        StaniceData temp = new StaniceData(nazevStanice, seznamKraju.get(nazevKraje).getStaniceWebid(nazevStanice));
     }
     
     private void addAllFromKraj(String nazevKraje) {
@@ -167,5 +173,11 @@ public class FXMLDocumentController implements Initializable {
         for (Object iterator : nacteneKraje) {
             nactenyPocet += seznamKraju.get((String) iterator).getPocetStanic();
         }
+    }
+    
+    @FXML
+    public void closeApp() {
+        Stage stage = (Stage) checkUpdate.getScene().getWindow();
+        stage.close();
     }
 }
