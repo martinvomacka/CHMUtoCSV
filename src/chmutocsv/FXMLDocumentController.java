@@ -8,9 +8,11 @@ package chmutocsv;
 import java.io.File;
 import java.net.URL;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
+import java.util.LinkedList;
+import java.util.Map;
 import java.util.ResourceBundle;
-import javafx.application.HostServices;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -33,11 +35,11 @@ public class FXMLDocumentController implements Initializable {
     private HashMap<String, Kraj> seznamKraju;
     private Object nacteneKraje[];
     private int nactenyPocet;
-    public ArrayList<String> seznamVybranychStanic;
-    public ArrayList<StaniceData> nacteneStanice;
+    public HashMap<String, Stanice> seznamVybranychStanic;
+    private static LinkedList<StaniceData> nacteneStanice;
     private final XMLParser parser = new XMLParser(this);
     private final Updater kontrola = new Updater();
-    public ObservableList<String> ob;
+    public ObservableMap<String, Stanice> ob;
     
     @FXML
     public Label statusBar;
@@ -51,7 +53,7 @@ public class FXMLDocumentController implements Initializable {
     @FXML
     private void testRead() {
         kontrola.setURL("http://hydro.chmi.cz/hpps/hpps_srzstationdyn.php?seq="+"20293175");
-        StaniceData test = new StaniceData("Luční bouda", 20293175);
+        StaniceData test = new StaniceData("Luční bouda");
         kontrola.readValues(test);
     }
     
@@ -103,7 +105,7 @@ public class FXMLDocumentController implements Initializable {
         updatePocetStanic();
         statusBar.setText(statusBar.getText()+" Aktuální počet všech záznamů: "+nactenyPocet);
         loadTreeItems();
-        seznamVybranychStanic = new ArrayList<>();
+        seznamVybranychStanic = new HashMap<>();
     }
 
     private void loadTreeItems() {
@@ -123,18 +125,14 @@ public class FXMLDocumentController implements Initializable {
         }
     }
     
-    private void loadStaniceData(String nazevStanice, String nazevKraje) {
-        StaniceData temp = new StaniceData(nazevStanice, seznamKraju.get(nazevKraje).getStaniceWebid(nazevStanice));
-    }
-    
     private void addAllFromKraj(String nazevKraje) {
         Object seznamStanic[] = seznamKraju.get(nazevKraje).getSeznam().keySet().toArray();
         int size = seznamKraju.get(nazevKraje).getPocetStanic();
         String jmeno;
         for (int i = 0; i < size; i++) {
             jmeno=(String)seznamStanic[i];
-            if(!seznamVybranychStanic.contains(jmeno))
-                seznamVybranychStanic.add(jmeno);
+            if(!seznamVybranychStanic.containsKey(jmeno))
+                seznamVybranychStanic.put(jmeno, new Stanice(jmeno, String.valueOf(seznamKraju.get(nazevKraje).getStaniceWebid(jmeno))));
         }
     }
     
@@ -145,24 +143,24 @@ public class FXMLDocumentController implements Initializable {
             System.out.println("Přidat vše z kraje "+tSeznam.getSelectionModel().getSelectedItem().getValue());
         }
         else {
-            if(!seznamVybranychStanic.contains(tSeznam.getSelectionModel().getSelectedItem().getValue())) {
-                seznamVybranychStanic.add(tSeznam.getSelectionModel().getSelectedItem().getValue());
+            if(!seznamVybranychStanic.containsKey(tSeznam.getSelectionModel().getSelectedItem().getValue())) {
+                seznamVybranychStanic.put(tSeznam.getSelectionModel().getSelectedItem().getValue(), new Stanice(tSeznam.getSelectionModel().getSelectedItem().getValue(), String.valueOf(seznamKraju.get(vybranyParent).getStaniceWebid(tSeznam.getSelectionModel().getSelectedItem().getValue()))));
             }
         }
-        ob = FXCollections.observableList(seznamVybranychStanic);
+        ob = FXCollections.observableMap((Map<String, Stanice>) seznamVybranychStanic);
         lVybrane.setItems(ob);
     }
     
     public void bOdebratVsePressed(ActionEvent event) {
         seznamVybranychStanic.clear();
-        ob = FXCollections.observableList(seznamVybranychStanic);
+        //ob = FXCollections.observableList(seznamVybranychStanic);
         lVybrane.setItems(ob);
     }
     
     public void bOdebratPressed(ActionEvent event) {
         if(lVybrane.getSelectionModel().selectedItemProperty().getValue()!=null) {
             seznamVybranychStanic.remove(lVybrane.getSelectionModel().selectedItemProperty().getValue());
-            ob = FXCollections.observableList(seznamVybranychStanic);
+            //ob = FXCollections.observableList(seznamVybranychStanic);
             lVybrane.setItems(ob);
         }
     }

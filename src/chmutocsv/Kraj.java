@@ -67,7 +67,7 @@ public class Kraj {
     }
 
     /**
-     * Vrátí volajícímu objektu hešovaný seznam stanic danného kraje.
+     * Vrátí hešovaný seznam stanic danného kraje.
      * <p>
      * @return Hešovaný seznam stanic z danného kraje
      */
@@ -88,7 +88,7 @@ public class Kraj {
     }
 
     /**
-     * Vrátí volajícímu objektu počet stanic danného kraje.
+     * Vrátí počet stanic danného kraje.
      * <p>
      * @return Počet stanic v danném kraji
      */
