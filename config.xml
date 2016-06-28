@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<seznamStanic celkovyPocet="401">
+<seznamStanic celkovyPocet="399">
   <kraj nazevKraje="Olomoucký kraj" webidKraje="17276">
     <stanice nazevStanice="Uhelná, Nové Vilémovice" webidStanice="37680695"/>
     <stanice nazevStanice="Hoštejn" webidStanice="20706730"/>
@@ -45,7 +45,6 @@
     <stanice nazevStanice="Vyšší Brod" webidStanice="307405"/>
     <stanice nazevStanice="Mladá Vožice" webidStanice="10053456"/>
     <stanice nazevStanice="Hlasivo" webidStanice="20709976"/>
-    <stanice nazevStanice="Jelení, Nová Pec" webidStanice="36535642"/>
     <stanice nazevStanice="Černá v Pošumaví" webidStanice="307404"/>
     <stanice nazevStanice="Trhové Sviny" webidStanice="20710576"/>
     <stanice nazevStanice="Volyně - Nihošovice" webidStanice="20710011"/>
@@ -85,7 +84,6 @@
     <stanice nazevStanice="Jemnice" webidStanice="36536237"/>
     <stanice nazevStanice="Havlíčkův Brod" webidStanice="20628317"/>
     <stanice nazevStanice="Brtnice" webidStanice="36536062"/>
-    <stanice nazevStanice="Nový Rychnov" webidStanice="10053439"/>
     <stanice nazevStanice="Hubenov" webidStanice="20706127"/>
     <stanice nazevStanice="Černovice - Dobešov" webidStanice="20710609"/>
     <stanice nazevStanice="Třešť" webidStanice="20063629"/>
@@ -118,6 +116,7 @@
     <stanice nazevStanice="Hvozdec, Mrtník" webidStanice="35817161"/>
     <stanice nazevStanice="Brandýs nad Labem" webidStanice="20628286"/>
     <stanice nazevStanice="Nedrahovice, Rudolec" webidStanice="10053441"/>
+    <stanice nazevStanice="Dolní Bousov" webidStanice="37813817"/>
     <stanice nazevStanice="Vavřinec, Žíšov" webidStanice="20861720"/>
     <stanice nazevStanice="Katusice" webidStanice="37304096"/>
     <stanice nazevStanice="Semčice" webidStanice="10053437"/>
@@ -332,7 +331,6 @@
     <stanice nazevStanice="Horšovský Týn" webidStanice="26210492"/>
     <stanice nazevStanice="Chanovice" webidStanice="32213035"/>
     <stanice nazevStanice="Železná Ruda - Hojsova Stráž" webidStanice="2724205"/>
-    <stanice nazevStanice="Vlkonice" webidStanice="22755527"/>
     <stanice nazevStanice="Plzeň - Mikulka" webidStanice="307491"/>
     <stanice nazevStanice="Kralovice" webidStanice="307495"/>
   </kraj>
@@ -367,7 +365,6 @@
     <stanice nazevStanice="Praha, Stodůlky (HMP)" webidStanice="31502353"/>
     <stanice nazevStanice="Praha, Dubeč (HMP)" webidStanice="31503484"/>
     <stanice nazevStanice="Praha, Střešovice (HMP)" webidStanice="31502706"/>
-    <stanice nazevStanice="Praha, Klementinum" webidStanice="23612746"/>
     <stanice nazevStanice="Praha, Horní Počernice (HMP)" webidStanice="31503719"/>
     <stanice nazevStanice="Praha, Břevnov" webidStanice="27549884"/>
     <stanice nazevStanice="Praha, Karlov (HMP)" webidStanice="31503441"/>
@@ -375,6 +372,7 @@
     <stanice nazevStanice="Praha, Libuš" webidStanice="307496"/>
     <stanice nazevStanice="Praha, Kbely" webidStanice="307403"/>
     <stanice nazevStanice="Praha, Řepy (HMP)" webidStanice="31502334"/>
+    <stanice nazevStanice="Praha, Běchovice (HMP)" webidStanice="31503846"/>
     <stanice nazevStanice="Praha, Jinonice (HMP)" webidStanice="31502356"/>
     <stanice nazevStanice="Praha, Ruzyně" webidStanice="307498"/>
     <stanice nazevStanice="Praha, Chodov (HMP)" webidStanice="31503472"/>
