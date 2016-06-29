@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<seznamStanic celkovyPocet="399">
+<seznamStanic celkovyPocet="400">
   <kraj nazevKraje="Olomoucký kraj" webidKraje="17276">
     <stanice nazevStanice="Uhelná, Nové Vilémovice" webidStanice="37680695"/>
     <stanice nazevStanice="Hoštejn" webidStanice="20706730"/>
@@ -365,6 +365,7 @@
     <stanice nazevStanice="Praha, Stodůlky (HMP)" webidStanice="31502353"/>
     <stanice nazevStanice="Praha, Dubeč (HMP)" webidStanice="31503484"/>
     <stanice nazevStanice="Praha, Střešovice (HMP)" webidStanice="31502706"/>
+    <stanice nazevStanice="Praha, Klementinum" webidStanice="23612746"/>
     <stanice nazevStanice="Praha, Horní Počernice (HMP)" webidStanice="31503719"/>
     <stanice nazevStanice="Praha, Břevnov" webidStanice="27549884"/>
     <stanice nazevStanice="Praha, Karlov (HMP)" webidStanice="31503441"/>

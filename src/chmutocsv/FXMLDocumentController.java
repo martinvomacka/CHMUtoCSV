@@ -58,11 +58,11 @@ public class FXMLDocumentController implements Initializable {
     
     @FXML
     private void updateButtonAction() {
-        kontrola.setURL("http://hydro.chmi.cz/hpps/hpps_act_rain.php");
+        kontrola.setURL("http://hydro.chmi.cz/hpps/hpps_act_rain.php?day_offset=-1");
         seznamKraju=kontrola.updateKraje();
         nacteneKraje = seznamKraju.keySet().toArray();
         for (Object iterator : nacteneKraje) {
-            kontrola.setURL("http://hydro.chmi.cz/hpps/hpps_act_rain.php?fkraj="+seznamKraju.get((String)iterator).getWebidKraje());
+            kontrola.setURL("http://hydro.chmi.cz/hpps/hpps_act_rain.php?day_offset=-1&fkraj="+seznamKraju.get((String)iterator).getWebidKraje());
             kontrola.naplnKraj(seznamKraju.get((String)iterator));
         }
         parser.exportToXML(seznamKraju, filename);
@@ -75,7 +75,7 @@ public class FXMLDocumentController implements Initializable {
     private void checkUpdateButtonAction() {
         seznamKraju = parser.importFromXML(filename);
         updatePocetStanic();
-        kontrola.setURL("http://hydro.chmi.cz/hpps/hpps_act_rain.php");
+        kontrola.setURL("http://hydro.chmi.cz/hpps/hpps_act_rain.php?day_offset=-1");
         int webpocet = kontrola.isUpdateNeeded();
         if(webpocet != nactenyPocet) {
             statusBar.setText("Je potřeba aktualizace seznamu stanic! Konfigurační soubor: "+nactenyPocet+" =/= Web ČHMÚ: "+webpocet);
