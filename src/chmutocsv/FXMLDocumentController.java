@@ -8,10 +8,8 @@ package chmutocsv;
 import java.io.File;
 import java.net.URL;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.HashMap;
 import java.util.LinkedList;
-import java.util.Map;
 import java.util.ResourceBundle;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -35,11 +33,11 @@ public class FXMLDocumentController implements Initializable {
     private HashMap<String, Kraj> seznamKraju;
     private Object nacteneKraje[];
     private int nactenyPocet;
-    public HashMap<String, Stanice> seznamVybranychStanic;
-    private static LinkedList<StaniceData> nacteneStanice;
+    public ArrayList<String> seznamVybranychStanic;
+    public static LinkedList<Stanice> nacteneStanice;
     private final XMLParser parser = new XMLParser(this);
     private final Updater kontrola = new Updater();
-    public ObservableMap<String, Stanice> ob;
+    public ObservableList<String> ob;
     
     @FXML
     public Label statusBar;
@@ -52,9 +50,10 @@ public class FXMLDocumentController implements Initializable {
     
     @FXML
     private void testRead() {
-        kontrola.setURL("http://hydro.chmi.cz/hpps/hpps_srzstationdyn.php?seq="+"20293175");
-        StaniceData test = new StaniceData("Luční bouda");
-        kontrola.readValues(test);
+        nacteneStanice = new LinkedList<>();
+        generateStanice();
+        Thread test = new DataLoaderController(this, nacteneStanice);
+        test.start();
     }
     
     @FXML
@@ -105,7 +104,22 @@ public class FXMLDocumentController implements Initializable {
         updatePocetStanic();
         statusBar.setText(statusBar.getText()+" Aktuální počet všech záznamů: "+nactenyPocet);
         loadTreeItems();
-        seznamVybranychStanic = new HashMap<>();
+        seznamVybranychStanic = new ArrayList<>();
+    }
+    
+    private void generateStanice() {
+        int krajID;
+        int staniceID;
+        for (String seznamVybranychStanic1 : seznamVybranychStanic) {
+            for (Object nacteneKraje1 : nacteneKraje) {
+                krajID = seznamKraju.get((String) nacteneKraje1).getWebidKraje();
+                staniceID = seznamKraju.get((String) nacteneKraje1).getStaniceWebid(seznamVybranychStanic1);
+                if (staniceID>=0) {
+                    nacteneStanice.add(new Stanice(seznamVybranychStanic1, staniceID, krajID));
+                    break;
+                }
+            }
+        }
     }
 
     private void loadTreeItems() {
@@ -131,36 +145,37 @@ public class FXMLDocumentController implements Initializable {
         String jmeno;
         for (int i = 0; i < size; i++) {
             jmeno=(String)seznamStanic[i];
-            if(!seznamVybranychStanic.containsKey(jmeno))
-                seznamVybranychStanic.put(jmeno, new Stanice(jmeno, String.valueOf(seznamKraju.get(nazevKraje).getStaniceWebid(jmeno))));
+            if(!seznamVybranychStanic.contains(jmeno))
+                seznamVybranychStanic.add(jmeno);
         }
     }
     
     public void bPridatPressed(ActionEvent event) {
+        if(tSeznam.getSelectionModel().getSelectedItem().getValue().equals("Kraje"))
+            return;
         String vybranyParent = tSeznam.getSelectionModel().getSelectedItem().getParent().getValue();
         if(vybranyParent.equals("Kraje")) {
             addAllFromKraj(tSeznam.getSelectionModel().getSelectedItem().getValue());
-            System.out.println("Přidat vše z kraje "+tSeznam.getSelectionModel().getSelectedItem().getValue());
         }
         else {
-            if(!seznamVybranychStanic.containsKey(tSeznam.getSelectionModel().getSelectedItem().getValue())) {
-                seznamVybranychStanic.put(tSeznam.getSelectionModel().getSelectedItem().getValue(), new Stanice(tSeznam.getSelectionModel().getSelectedItem().getValue(), String.valueOf(seznamKraju.get(vybranyParent).getStaniceWebid(tSeznam.getSelectionModel().getSelectedItem().getValue()))));
+            if(!seznamVybranychStanic.contains(tSeznam.getSelectionModel().getSelectedItem().getValue())){
+                seznamVybranychStanic.add(tSeznam.getSelectionModel().getSelectedItem().getValue());
             }
         }
-        ob = FXCollections.observableMap((Map<String, Stanice>) seznamVybranychStanic);
+        ob = FXCollections.observableList(seznamVybranychStanic);
         lVybrane.setItems(ob);
     }
     
     public void bOdebratVsePressed(ActionEvent event) {
         seznamVybranychStanic.clear();
-        //ob = FXCollections.observableList(seznamVybranychStanic);
+        ob = FXCollections.observableList(seznamVybranychStanic);
         lVybrane.setItems(ob);
     }
     
     public void bOdebratPressed(ActionEvent event) {
         if(lVybrane.getSelectionModel().selectedItemProperty().getValue()!=null) {
             seznamVybranychStanic.remove(lVybrane.getSelectionModel().selectedItemProperty().getValue());
-            //ob = FXCollections.observableList(seznamVybranychStanic);
+            ob = FXCollections.observableList(seznamVybranychStanic);
             lVybrane.setItems(ob);
         }
     }

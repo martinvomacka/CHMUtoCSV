@@ -98,7 +98,7 @@ public class Updater {
         return actualValue;
     }
     
-    public void readValues(StaniceData stanice) {
+    public void readValues(Stanice stanice) {
         try {
             BufferedReader webpagePlaintext = new BufferedReader(new InputStreamReader(webpage.openStream(), "CP1250"));
             String inputLine;

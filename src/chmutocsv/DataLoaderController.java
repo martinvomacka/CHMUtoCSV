@@ -9,9 +9,6 @@ import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
-import java.util.concurrent.TimeUnit;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 /**
  *
@@ -19,21 +16,22 @@ import java.util.logging.Logger;
  */
 public class DataLoaderController extends Thread{
     private final FXMLDocumentController parent;
-    private final LinkedList<StaniceData> parentBuffer;
-    private final ArrayList<String> parentVybrane;
+    public final LinkedList<Stanice> seznamStanic;
 
-    public DataLoaderController(FXMLDocumentController inParent, LinkedList<StaniceData> inParentBuffer, ArrayList<String> inSeznam) {
+    public DataLoaderController(FXMLDocumentController inParent, LinkedList<Stanice> inSeznamStanic) {
         this.parent = inParent;
-        this.parentBuffer = inParentBuffer;
-        this.parentVybrane = inSeznam;
+        this.seznamStanic = inSeznamStanic;
     }
 
     @Override
     public void run() {
+        System.out.println("Starting job...");
         ExecutorService es = Executors.newFixedThreadPool(5);
-    for(int i=0;i<10;i++)
-        es.execute(new DataLoaderThread(parentBuffer, null, null));
-    es.shutdown();
-    while(!es.isTerminated());
+        for (Stanice seznamStanic1 : seznamStanic) {
+            es.execute(new DataLoaderThread(seznamStanic1));
+        }
+        es.shutdown();
+        while(!es.isTerminated());
+        System.out.println("Job DONE!");
     }
 }

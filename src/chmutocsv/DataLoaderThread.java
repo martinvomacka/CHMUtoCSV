@@ -1,28 +1,21 @@
 package chmutocsv;
 
-import java.util.LinkedList;
-
 /**
  *
  * @author Martin Vomacka
  */
 public class DataLoaderThread extends Thread{
-    private final LinkedList<StaniceData> buffer;
-    private final String jmenoStanice;
-    private final String webidStanice;
+    private final Stanice stanice;
 
-    public DataLoaderThread(LinkedList<StaniceData> inBuffer, String inNazev, String inWebid) {
-        this.buffer = inBuffer;
-        this.jmenoStanice = inNazev;
-        this.webidStanice = inWebid;
+    public DataLoaderThread(Stanice inStanice) {
+        this.stanice = inStanice;
     }
 
     @Override
     public void run() {
+        //System.out.println("http://hydro.chmi.cz/hpps/hpps_srzstationdyn.php?seq="+String.valueOf(stanice.getWebidStanice()));
         Updater web = new Updater();
-        web.setURL("http://hydro.chmi.cz/hpps/hpps_srzstationdyn.php?seq="+webidStanice);
-        StaniceData temp = new StaniceData(jmenoStanice);
-        web.readValues(temp);
-        buffer.add(temp);
+        web.setURL("http://hydro.chmi.cz/hpps/hpps_srzstationdyn.php?seq="+String.valueOf(stanice.getWebidStanice()));
+        web.readValues(stanice);
     }
 }

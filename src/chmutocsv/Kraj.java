@@ -84,7 +84,10 @@ public class Kraj {
      *         kraji neexsituje.
      */
     public int getStaniceWebid(String jmenoStanice) {
-        return staniceKraje.get(jmenoStanice);
+        if(!staniceKraje.containsKey(jmenoStanice))
+            return -1;
+        else
+            return staniceKraje.get(jmenoStanice);
     }
 
     /**
