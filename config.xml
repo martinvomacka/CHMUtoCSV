@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<seznamStanic celkovyPocet="400">
+<seznamStanic celkovyPocet="402">
   <kraj nazevKraje="Olomoucký kraj" webidKraje="17276">
     <stanice nazevStanice="Uhelná, Nové Vilémovice" webidStanice="37680695"/>
     <stanice nazevStanice="Hoštejn" webidStanice="20706730"/>
@@ -45,6 +45,7 @@
     <stanice nazevStanice="Vyšší Brod" webidStanice="307405"/>
     <stanice nazevStanice="Mladá Vožice" webidStanice="10053456"/>
     <stanice nazevStanice="Hlasivo" webidStanice="20709976"/>
+    <stanice nazevStanice="Jelení, Nová Pec" webidStanice="36535642"/>
     <stanice nazevStanice="Černá v Pošumaví" webidStanice="307404"/>
     <stanice nazevStanice="Trhové Sviny" webidStanice="20710576"/>
     <stanice nazevStanice="Volyně - Nihošovice" webidStanice="20710011"/>
@@ -84,6 +85,7 @@
     <stanice nazevStanice="Jemnice" webidStanice="36536237"/>
     <stanice nazevStanice="Havlíčkův Brod" webidStanice="20628317"/>
     <stanice nazevStanice="Brtnice" webidStanice="36536062"/>
+    <stanice nazevStanice="Nový Rychnov" webidStanice="10053439"/>
     <stanice nazevStanice="Hubenov" webidStanice="20706127"/>
     <stanice nazevStanice="Černovice - Dobešov" webidStanice="20710609"/>
     <stanice nazevStanice="Třešť" webidStanice="20063629"/>

@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.shape.*?>
 <?import java.lang.*?>
 <?import java.util.*?>
 <?import javafx.scene.*?>
@@ -9,23 +10,33 @@
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="483.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="chmutocsv.FXMLDocumentController">
    <children>
       <Label fx:id="statusBar" layoutY="466.0" prefHeight="17.0" prefWidth="600.0" style="-fx-background-color: #bbbbbb;" />
-      <Button layoutX="518.0" layoutY="154.0" mnemonicParsing="false" onAction="#updateButtonAction" text="Aktualizuj" />
-      <Button fx:id="checkUpdate" layoutX="454.0" layoutY="128.0" mnemonicParsing="false" onAction="#checkUpdateButtonAction" text="Zkontroluj aktualizace" />
-      <Button layoutX="548.0" layoutY="179.0" mnemonicParsing="false" onAction="#testRead" text="Test" />
+      <Button fx:id="bTest" layoutX="470.0" layoutY="154.0" mnemonicParsing="false" onAction="#testRead" text="Test" />
       <TreeView fx:id="tSeznam" layoutY="24.0" prefHeight="442.0" prefWidth="204.0" />
       <ListView fx:id="lVybrane" layoutX="270.0" layoutY="24.0" prefHeight="416.0" prefWidth="184.0" />
-      <Button layoutX="320.0" layoutY="441.0" mnemonicParsing="false" onAction="#bOdebratVsePressed" text="Odstranit vše" />
-      <Button layoutX="215.0" layoutY="141.0" mnemonicParsing="false" onAction="#bOdebratPressed" text="&lt;----" />
-      <Button layoutX="215.0" layoutY="104.0" mnemonicParsing="false" onAction="#bPridatPressed" text="----&gt;" />
+      <Button fx:id="bOdebratVse" layoutX="320.0" layoutY="441.0" mnemonicParsing="false" onAction="#bOdebratVsePressed" text="Odstranit vše" />
+      <Button fx:id="bOdebrat" layoutX="215.0" layoutY="141.0" mnemonicParsing="false" onAction="#bOdebratPressed" text="&lt;----" />
+      <Button fx:id="bPridat" layoutX="215.0" layoutY="104.0" mnemonicParsing="false" onAction="#bPridatPressed" text="----&gt;" />
       <MenuBar prefHeight="25.0" prefWidth="600.0">
         <menus>
-          <Menu mnemonicParsing="false" text="Menu">
+          <Menu fx:id="menu1" mnemonicParsing="false" text="Menu">
             <items>
-              <MenuItem mnemonicParsing="false" onAction="#updateButtonAction" text="Aktualizace stanic" />
-                  <MenuItem mnemonicParsing="false" onAction="#closeApp" text="Zavřít" />
+              <MenuItem mnemonicParsing="false" onAction="#checkUpdateButtonAction" text="Kontrola stanic" />
+                  <MenuItem mnemonicParsing="false" onAction="#updateButtonAction" text="Aktualizace stanic" />
+                  <MenuItem mnemonicParsing="false" onAction="#closeApp" text="Ukončit aplikaci" />
             </items>
           </Menu>
+            <Menu fx:id="menu2" mnemonicParsing="false" text="Info">
+               <items>
+                  <MenuItem mnemonicParsing="false" onAction="#aboutApp" text="O aplikaci" />
+               </items>
+            </Menu>
         </menus>
       </MenuBar>
+      <Circle fx:id="cKolo" fill="DODGERBLUE" layoutX="580.0" layoutY="134.0" radius="8.0" stroke="BLACK" strokeType="INSIDE" />
+      <Button layoutX="462.0" layoutY="121.0" mnemonicParsing="false" onAction="#bCSVExportPressed" text="Export do CSV" />
+      <Label layoutX="462.0" layoutY="25.0" text="Od" />
+      <Label layoutX="462.0" layoutY="69.0" text="Do" />
+      <DatePicker fx:id="dDo" layoutX="462.0" layoutY="87.0" prefHeight="25.0" prefWidth="130.0" />
+      <DatePicker fx:id="dOd" layoutX="462.0" layoutY="44.0" prefHeight="25.0" prefWidth="130.0" />
    </children>
 </AnchorPane>

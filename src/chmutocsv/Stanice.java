@@ -49,7 +49,7 @@ public class Stanice {
      * @param input Číselná hodnota srážkového údaje
      */
     public void pushValue(float input) {
-        this.hodnoty.add(input);
+        this.hodnoty.addFirst(input);
     }
 
     /**

@@ -74,12 +74,8 @@ public class XMLParser {
             StreamResult result = new StreamResult(new File(filename));
 
             transformer.transform(source, result);
-            parentLink.statusBar.setText("Konfigurační soubor úspěšně vytvořen.");
-            parentLink.statusBar.setTextFill(Color.GREEN);
         } catch (ParserConfigurationException | TransformerException ex) {
             Logger.getLogger(Updater.class.getName()).log(Level.SEVERE, null, ex);
-            parentLink.statusBar.setText("Konfigurační soubor se nepodařilo vytvořit!");
-            parentLink.statusBar.setTextFill(Color.RED);
         }
     }
 
@@ -103,12 +99,8 @@ public class XMLParser {
                 }
                 temp.put(krajElement.getAttribute("nazevKraje"), tempKraj);
             }
-            parentLink.statusBar.setText("Konfigurační soubor úspěšně načten.");
-            parentLink.statusBar.setTextFill(Color.GREEN);
         } catch (ParserConfigurationException | SAXException | IOException ex) {
             Logger.getLogger(XMLParser.class.getName()).log(Level.SEVERE, null, ex);
-            parentLink.statusBar.setText("Konfigurační soubor se nepodařilo načíst!");
-            parentLink.statusBar.setTextFill(Color.RED);
             return null;
         }
         return temp;

@@ -5,16 +5,16 @@
  */
 package chmutocsv;
 
-import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
+import javafx.concurrent.Task;
 
 /**
  *
  * @author Vomec
  */
-public class DataLoaderController extends Thread{
+public class DataLoaderController extends Task{
     private final FXMLDocumentController parent;
     public final LinkedList<Stanice> seznamStanic;
 
@@ -24,14 +24,15 @@ public class DataLoaderController extends Thread{
     }
 
     @Override
-    public void run() {
-        System.out.println("Starting job...");
-        ExecutorService es = Executors.newFixedThreadPool(5);
+    protected Object call() throws Exception {
+        int threadsAvailaible = Runtime.getRuntime().availableProcessors();
+        updateMessage("Načítám data, prosím čekejte... Počet dostupných procesorů: "+threadsAvailaible);
+        ExecutorService es = Executors.newFixedThreadPool(threadsAvailaible);
         for (Stanice seznamStanic1 : seznamStanic) {
             es.execute(new DataLoaderThread(seznamStanic1));
         }
         es.shutdown();
         while(!es.isTerminated());
-        System.out.println("Job DONE!");
+        return null;
     }
 }

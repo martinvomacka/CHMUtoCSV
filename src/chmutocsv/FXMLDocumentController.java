@@ -6,23 +6,44 @@
 package chmutocsv;
 
 import java.io.File;
+import java.io.IOException;
 import java.net.URL;
+import java.time.LocalDate;
+import java.time.Period;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.ResourceBundle;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javafx.application.Application;
+import javafx.beans.property.ReadOnlyStringProperty;
+import javafx.beans.property.SimpleStringProperty;
+import javafx.beans.property.StringProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.concurrent.Task;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.DateCell;
+import javafx.scene.control.DatePicker;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
+import javafx.scene.control.Menu;
 import javafx.scene.control.TreeItem;
 import javafx.scene.control.TreeView;
 import javafx.scene.paint.Color;
+import javafx.scene.shape.Circle;
+import javafx.stage.Modality;
 import javafx.stage.Stage;
+import javafx.stage.StageStyle;
+import javafx.util.Callback;
+import jdk.nashorn.internal.runtime.regexp.joni.EncodingHelper;
 
 /**
  *
@@ -38,11 +59,28 @@ public class FXMLDocumentController implements Initializable {
     private final XMLParser parser = new XMLParser(this);
     private final Updater kontrola = new Updater();
     public ObservableList<String> ob;
+    private Application parentApp;
     
+    @FXML
+    public DatePicker dOd;
+    @FXML
+    public DatePicker dDo;
     @FXML
     public Label statusBar;
     @FXML
-    public Button checkUpdate;
+    public Circle cKolo;
+    @FXML
+    public Button bTest;
+    @FXML
+    public Button bPridat;
+    @FXML
+    public Button bOdebrat;
+    @FXML
+    public Button bOdebratVse;
+    @FXML
+    public Menu menu1;
+    @FXML
+    public Menu menu2;
     @FXML
     public TreeView<String> tSeznam;
     @FXML
@@ -50,42 +88,106 @@ public class FXMLDocumentController implements Initializable {
     
     @FXML
     private void testRead() {
+        if(seznamVybranychStanic.isEmpty()) {
+            statusBar.setText("Nevybrána žádná stanice!");
+            statusBar.setTextFill(Color.ORANGERED);
+            return;
+        }
+        else
+            statusBar.setTextFill(Color.GREEN);
         nacteneStanice = new LinkedList<>();
         generateStanice();
-        Thread test = new DataLoaderController(this, nacteneStanice);
-        test.start();
+        Task test = new DataLoaderController(this, nacteneStanice);
+        statusBar.textProperty().bind(test.messageProperty());
+        cKolo.setFill(Color.ORANGERED);
+        disableControls(true);
+        test.setOnSucceeded(e -> {
+            statusBar.textProperty().unbind();
+            cKolo.setFill(Color.GREEN);
+            disableControls(false);
+            // this message will be seen.
+            statusBar.setText("Načítání dat proběhlo úspěšně");
+            statusBar.setTextFill(Color.GREEN);
+        });
+        Thread thread = new Thread(test);
+        thread.setDaemon(true);
+        thread.start();
     }
     
     @FXML
     private void updateButtonAction() {
-        kontrola.setURL("http://hydro.chmi.cz/hpps/hpps_act_rain.php?day_offset=-1");
-        seznamKraju=kontrola.updateKraje();
-        nacteneKraje = seznamKraju.keySet().toArray();
-        for (Object iterator : nacteneKraje) {
-            kontrola.setURL("http://hydro.chmi.cz/hpps/hpps_act_rain.php?day_offset=-1&fkraj="+seznamKraju.get((String)iterator).getWebidKraje());
-            kontrola.naplnKraj(seznamKraju.get((String)iterator));
-        }
-        parser.exportToXML(seznamKraju, filename);
-        checkUpdate.setDisable(false);
-        tSeznam.setDisable(false);
-        loadTreeItems();
+        disableControls(true);
+        Task <Void> task = new Task<Void>() {
+            @Override public Void call() throws InterruptedException {
+                updateMessage("Probíhá aktualizace seznamu stanic. Prosím vyčkejte!");
+                statusBar.setTextFill(Color.GREEN);
+                kontrola.setURL("http://hydro.chmi.cz/hpps/hpps_act_rain.php?day_offset=-1");
+                seznamKraju=kontrola.updateKraje();
+                nacteneKraje = seznamKraju.keySet().toArray();
+                for (Object iterator : nacteneKraje) {
+                    kontrola.setURL("http://hydro.chmi.cz/hpps/hpps_act_rain.php?day_offset=-1&fkraj="+seznamKraju.get((String)iterator).getWebidKraje());
+                    kontrola.naplnKraj(seznamKraju.get((String)iterator));
+                }
+                parser.exportToXML(seznamKraju, filename);
+                return null;
+            }
+        };
+        statusBar.textProperty().bind(task.messageProperty());
+        task.setOnSucceeded(e -> {
+            statusBar.textProperty().unbind();
+            statusBar.setText("Konfigurační soubor úspěšně vytvořen.");
+            statusBar.setTextFill(Color.GREEN);
+            disableControls(false);
+            loadTreeItems();
+        });
+        Thread thread = new Thread(task);
+        thread.setDaemon(true);
+        thread.start();
     }
     
     @FXML
     private void checkUpdateButtonAction() {
-        seznamKraju = parser.importFromXML(filename);
-        updatePocetStanic();
-        kontrola.setURL("http://hydro.chmi.cz/hpps/hpps_act_rain.php?day_offset=-1");
-        int webpocet = kontrola.isUpdateNeeded();
-        if(webpocet != nactenyPocet) {
-            statusBar.setText("Je potřeba aktualizace seznamu stanic! Konfigurační soubor: "+nactenyPocet+" =/= Web ČHMÚ: "+webpocet);
-            statusBar.setStyle("-fx-font-weight: bold;"+statusBar.getStyle());
-            statusBar.setTextFill(Color.ORANGERED);
-        }
-        else {
-            statusBar.setText("Seznam stanic je aktuální. Není potřeba aktualizace.");
-            statusBar.setTextFill(Color.GREEN);
-        }
+        disableControls(true);
+        Task <Void> task = new Task<Void>() {
+            @Override public Void call() throws InterruptedException {
+                updateMessage("Kontrola seznamu stanic. Prosím vyčkejte!");
+                statusBar.setTextFill(Color.GREEN);
+                seznamKraju = parser.importFromXML(filename);
+                updatePocetStanic();
+                kontrola.setURL("http://hydro.chmi.cz/hpps/hpps_act_rain.php?day_offset=-1");
+                int webpocet = kontrola.isUpdateNeeded();
+                if(webpocet != nactenyPocet) {
+                    updateMessage("Je potřeba aktualizace seznamu stanic! Konfigurační soubor: "+nactenyPocet+" =/= Web ČHMÚ: "+webpocet);
+                    statusBar.setTextFill(Color.ORANGERED);
+                }
+                else {
+                    updateMessage("Seznam stanic je aktuální. Není potřeba aktualizace.");
+                    statusBar.setTextFill(Color.GREEN);
+                }
+                return null;
+            }
+        };
+        statusBar.textProperty().bind(task.messageProperty());
+        task.setOnSucceeded(e -> {
+            statusBar.textProperty().unbind();
+            disableControls(false);
+        });
+        Thread thread = new Thread(task);
+        thread.setDaemon(true);
+        thread.start();
+    }
+    
+    @FXML
+    private void bCSVExportPressed() {
+        LocalDate dateOd = dOd.getValue();
+        LocalDate dateDo = dDo.getValue();
+        LocalDate dnes = LocalDate.now();
+        int kolik_zpatky = Period.between(dateOd, dateDo).getDays();
+        int kolik_od_dnes = Period.between(dateDo, dnes).getDays();
+        System.out.println(kolik_zpatky);
+        System.out.println(kolik_od_dnes);
+        CSVParser test = new CSVParser(nacteneStanice, kolik_zpatky, kolik_od_dnes, "test.csv");
+        test.print();
     }
     
     @Override
@@ -95,16 +197,74 @@ public class FXMLDocumentController implements Initializable {
             seznamKraju = parser.importFromXML(filename);
         }
         else {
-            statusBar.setText("Konfigurační soubor neexistuje - proveďte jeho aktualizaci!");
             statusBar.setTextFill(Color.RED);
-            checkUpdate.setDisable(true);
-            tSeznam.setDisable(true);
+            statusBar.setText("Konfigurační soubor neexistuje - proveďte jeho aktualizaci!");
+            disableControls(true);
             return;
         }
+        final Callback<DatePicker, DateCell> dayCellFactory = 
+            new Callback<DatePicker, DateCell>() {
+                @Override
+                public DateCell call(final DatePicker datePicker) {
+                    return new DateCell() {
+                        @Override
+                        public void updateItem(LocalDate item, boolean empty) {
+                            super.updateItem(item, empty);
+                           
+                            if (item.isBefore(dOd.getValue())
+                                ) {
+                                    setDisable(true);
+                                    setStyle("-fx-background-color: #ffc0cb;");
+                            }
+                            if (item.isAfter(LocalDate.now())
+                                ) {
+                                    setDisable(true);
+                                    setStyle("-fx-background-color: #ffc0cb;");
+                            } 
+                    }
+                };
+            }
+        };
+        final Callback<DatePicker, DateCell> day2CellFactory = 
+            new Callback<DatePicker, DateCell>() {
+                @Override
+                public DateCell call(final DatePicker datePicker) {
+                    return new DateCell() {
+                        @Override
+                        public void updateItem(LocalDate item, boolean empty) {
+                            super.updateItem(item, empty);
+                           
+                            if (item.isBefore(LocalDate.now().minusDays(7))
+                                ) {
+                                    setDisable(true);
+                                    setStyle("-fx-background-color: #ffc0cb;");
+                            }
+                            if (item.isAfter(LocalDate.now())
+                                ) {
+                                    setDisable(true);
+                                    setStyle("-fx-background-color: #ffc0cb;");
+                            } 
+                    }
+                };
+            }
+        };
+        dOd.setDayCellFactory(day2CellFactory);
+        dOd.setValue(LocalDate.now().minusDays(7));
+        dDo.setDayCellFactory(dayCellFactory);
+        dDo.setValue(LocalDate.now());
         updatePocetStanic();
         statusBar.setText(statusBar.getText()+" Aktuální počet všech záznamů: "+nactenyPocet);
         loadTreeItems();
         seznamVybranychStanic = new ArrayList<>();
+    }
+    
+    private void disableControls(boolean input) {
+        bOdebrat.setDisable(input);
+        bOdebratVse.setDisable(input);
+        bPridat.setDisable(input);
+        tSeznam.setDisable(input);
+        lVybrane.setDisable(input);
+        bTest.setDisable(input);
     }
     
     private void generateStanice() {
@@ -180,6 +340,10 @@ public class FXMLDocumentController implements Initializable {
         }
     }
     
+    public void setParentApp(Application input) {
+        this.parentApp = input;
+    }
+    
     private void updatePocetStanic() {
         nacteneKraje = seznamKraju.keySet().toArray();
         nactenyPocet = 0;
@@ -190,7 +354,29 @@ public class FXMLDocumentController implements Initializable {
     
     @FXML
     public void closeApp() {
-        Stage stage = (Stage) checkUpdate.getScene().getWindow();
+        Stage stage = (Stage) bOdebratVse.getScene().getWindow();
         stage.close();
+    }
+    
+    @FXML
+    public void aboutApp() {
+        javafx.application.Platform.runLater(() -> {
+            Stage stage = new Stage();
+            FXMLLoader popUpLoader = new FXMLLoader();
+            try {
+                popUpLoader.load(getClass().getResource("/chmutocsv/popUp.fxml").openStream());
+            } catch (IOException ex) {
+                Logger.getLogger(FXMLDocumentController.class.getName()).log(Level.SEVERE, null, ex);
+            }
+            Parent root = popUpLoader.getRoot();
+            PopUpWindowController newCont = popUpLoader.getController();
+            newCont.setParentApp(parentApp);
+            stage.setScene(new Scene(root));
+            stage.setTitle("O aplikaci");
+            stage.initModality(Modality.APPLICATION_MODAL);
+            stage.initStyle(StageStyle.UTILITY);
+            stage.setResizable(false);
+            stage.showAndWait();
+        });
     }
 }
