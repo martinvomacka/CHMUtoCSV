@@ -17,9 +17,6 @@ import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javafx.application.Application;
-import javafx.beans.property.ReadOnlyStringProperty;
-import javafx.beans.property.SimpleStringProperty;
-import javafx.beans.property.StringProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.concurrent.Task;
@@ -43,7 +40,6 @@ import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 import javafx.util.Callback;
-import jdk.nashorn.internal.runtime.regexp.joni.EncodingHelper;
 
 /**
  *
@@ -70,13 +66,15 @@ public class FXMLDocumentController implements Initializable {
     @FXML
     public Circle cKolo;
     @FXML
-    public Button bTest;
-    @FXML
     public Button bPridat;
+    @FXML
+    public Button bExport;
     @FXML
     public Button bOdebrat;
     @FXML
     public Button bOdebratVse;
+    @FXML
+    public Button bLoadWeb;
     @FXML
     public Menu menu1;
     @FXML
@@ -87,7 +85,7 @@ public class FXMLDocumentController implements Initializable {
     public ListView<String> lVybrane;
     
     @FXML
-    private void testRead() {
+    private void readFromWeb() {
         if(seznamVybranychStanic.isEmpty()) {
             statusBar.setText("Nevybrána žádná stanice!");
             statusBar.setTextFill(Color.ORANGERED);
@@ -181,13 +179,13 @@ public class FXMLDocumentController implements Initializable {
     private void bCSVExportPressed() {
         LocalDate dateOd = dOd.getValue();
         LocalDate dateDo = dDo.getValue();
-        LocalDate dnes = LocalDate.now();
-        int kolik_zpatky = Period.between(dateOd, dateDo).getDays();
-        int kolik_od_dnes = Period.between(dateDo, dnes).getDays();
-        System.out.println(kolik_zpatky);
-        System.out.println(kolik_od_dnes);
-        CSVParser test = new CSVParser(nacteneStanice, kolik_zpatky, kolik_od_dnes, "test.csv");
-        test.print();
+        LocalDate first = LocalDate.now().minusDays(6);
+        int dnuCelkem = Period.between(dateOd, dateDo).getDays();
+        int dnuOdPrvniho = Period.between(first, dateOd).getDays();
+        System.out.println(dnuCelkem);
+        System.out.println(dnuOdPrvniho);
+        CSVParser test = new CSVParser(nacteneStanice, dnuCelkem, dnuOdPrvniho, "test.csv");
+        test.csvExport();
     }
     
     @Override
@@ -234,7 +232,7 @@ public class FXMLDocumentController implements Initializable {
                         public void updateItem(LocalDate item, boolean empty) {
                             super.updateItem(item, empty);
                            
-                            if (item.isBefore(LocalDate.now().minusDays(7))
+                            if (item.isBefore(LocalDate.now().minusDays(6))
                                 ) {
                                     setDisable(true);
                                     setStyle("-fx-background-color: #ffc0cb;");
@@ -249,7 +247,7 @@ public class FXMLDocumentController implements Initializable {
             }
         };
         dOd.setDayCellFactory(day2CellFactory);
-        dOd.setValue(LocalDate.now().minusDays(7));
+        dOd.setValue(LocalDate.now().minusDays(6));
         dDo.setDayCellFactory(dayCellFactory);
         dDo.setValue(LocalDate.now());
         updatePocetStanic();
@@ -264,7 +262,7 @@ public class FXMLDocumentController implements Initializable {
         bPridat.setDisable(input);
         tSeznam.setDisable(input);
         lVybrane.setDisable(input);
-        bTest.setDisable(input);
+        bExport.setDisable(input);
     }
     
     private void generateStanice() {

@@ -10,7 +10,6 @@
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="483.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="chmutocsv.FXMLDocumentController">
    <children>
       <Label fx:id="statusBar" layoutY="466.0" prefHeight="17.0" prefWidth="600.0" style="-fx-background-color: #bbbbbb;" />
-      <Button fx:id="bTest" layoutX="470.0" layoutY="154.0" mnemonicParsing="false" onAction="#testRead" text="Test" />
       <TreeView fx:id="tSeznam" layoutY="24.0" prefHeight="442.0" prefWidth="204.0" />
       <ListView fx:id="lVybrane" layoutX="270.0" layoutY="24.0" prefHeight="416.0" prefWidth="184.0" />
       <Button fx:id="bOdebratVse" layoutX="320.0" layoutY="441.0" mnemonicParsing="false" onAction="#bOdebratVsePressed" text="Odstranit vše" />
@@ -33,10 +32,11 @@
         </menus>
       </MenuBar>
       <Circle fx:id="cKolo" fill="DODGERBLUE" layoutX="580.0" layoutY="134.0" radius="8.0" stroke="BLACK" strokeType="INSIDE" />
-      <Button layoutX="462.0" layoutY="121.0" mnemonicParsing="false" onAction="#bCSVExportPressed" text="Export do CSV" />
+      <Button fx:id="bExport" layoutX="462.0" layoutY="154.0" mnemonicParsing="false" onAction="#bCSVExportPressed" text="Export do CSV" />
       <Label layoutX="462.0" layoutY="25.0" text="Od" />
       <Label layoutX="462.0" layoutY="69.0" text="Do" />
       <DatePicker fx:id="dDo" layoutX="462.0" layoutY="87.0" prefHeight="25.0" prefWidth="130.0" />
       <DatePicker fx:id="dOd" layoutX="462.0" layoutY="44.0" prefHeight="25.0" prefWidth="130.0" />
+      <Button fx:id="bLoadWeb" layoutX="462.0" layoutY="122.0" mnemonicParsing="false" onAction="#readFromWeb" prefHeight="25.0" prefWidth="92.0" text="Načíst z webu" />
    </children>
 </AnchorPane>
