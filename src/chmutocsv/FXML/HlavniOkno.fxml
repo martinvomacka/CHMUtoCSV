@@ -32,11 +32,10 @@
         </menus>
       </MenuBar>
       <Circle fx:id="cKolo" fill="DODGERBLUE" layoutX="580.0" layoutY="134.0" radius="8.0" stroke="BLACK" strokeType="INSIDE" />
-      <Button fx:id="bExport" layoutX="462.0" layoutY="154.0" mnemonicParsing="false" onAction="#bCSVExportPressed" text="Export do CSV" />
+      <Button fx:id="bExport" layoutX="462.0" layoutY="122.0" mnemonicParsing="false" onAction="#bCSVExportPressed" text="Export do CSV" />
       <Label layoutX="462.0" layoutY="25.0" text="Od" />
       <Label layoutX="462.0" layoutY="69.0" text="Do" />
       <DatePicker fx:id="dDo" layoutX="462.0" layoutY="87.0" prefHeight="25.0" prefWidth="130.0" />
       <DatePicker fx:id="dOd" layoutX="462.0" layoutY="44.0" prefHeight="25.0" prefWidth="130.0" />
-      <Button fx:id="bLoadWeb" layoutX="462.0" layoutY="122.0" mnemonicParsing="false" onAction="#readFromWeb" prefHeight="25.0" prefWidth="92.0" text="Načíst z webu" />
    </children>
 </AnchorPane>

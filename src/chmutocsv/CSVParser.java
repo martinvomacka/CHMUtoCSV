@@ -33,7 +33,6 @@ public class CSVParser {
         this.filename = inFilename;
         this.easy = new SimpleDateFormat("dd.MM.yyyy");
         this.start = LocalDate.now().minusDays(6-inOffsetFirst);
-        System.out.println(start.atStartOfDay());
     }
     
     public void printToConsole() {

@@ -52,7 +52,7 @@ public class HlavniOknoController implements Initializable {
     private int nactenyPocet;
     public ArrayList<String> seznamVybranychStanic;
     public static LinkedList<Stanice> nacteneStanice;
-    private final XMLParser parser = new XMLParser();
+    private final XMLParser parserXML = new XMLParser();
     private final Updater kontrola = new Updater();
     public ObservableList<String> ob;
     private Application parentApp;
@@ -74,8 +74,6 @@ public class HlavniOknoController implements Initializable {
     @FXML
     public Button bOdebratVse;
     @FXML
-    public Button bLoadWeb;
-    @FXML
     public Menu menu1;
     @FXML
     public Menu menu2;
@@ -85,58 +83,38 @@ public class HlavniOknoController implements Initializable {
     public ListView<String> lVybrane;
     
     @FXML
-    private void readFromWeb() {
-        if(seznamVybranychStanic.isEmpty()) {
-            statusBar.setText("Nevybrána žádná stanice!");
-            statusBar.setTextFill(Color.ORANGERED);
-            return;
-        }
-        else
-            statusBar.setTextFill(Color.GREEN);
-        nacteneStanice = new LinkedList<>();
-        generateStanice();
-        Task test = new DataLoaderController(this, nacteneStanice);
-        statusBar.textProperty().bind(test.messageProperty());
-        cKolo.setFill(Color.ORANGERED);
-        disableControls(true);
-        test.setOnSucceeded(e -> {
-            statusBar.textProperty().unbind();
-            cKolo.setFill(Color.GREEN);
-            disableControls(false);
-            // this message will be seen.
-            statusBar.setText("Načítání dat proběhlo úspěšně");
-            statusBar.setTextFill(Color.GREEN);
-        });
-        Thread thread = new Thread(test);
-        thread.setDaemon(true);
-        thread.start();
-    }
-    
-    @FXML
     private void updateButtonAction() {
         disableControls(true);
-        Task <Void> task = new Task<Void>() {
-            @Override public Void call() throws InterruptedException {
+        Task <Boolean> task = new Task<Boolean>() {
+            @Override public Boolean call() throws InterruptedException {
                 updateMessage("Probíhá aktualizace seznamu stanic. Prosím vyčkejte!");
                 statusBar.setTextFill(Color.GREEN);
-                kontrola.setURL("http://hydro.chmi.cz/hpps/hpps_act_rain.php?day_offset=-1");
+                if(!kontrola.setURL("http://hydro.chmi.cz/hpps/hpps_act_rain.php?day_offset=-1"))
+                    return false;
                 seznamKraju=kontrola.updateKraje();
                 nacteneKraje = seznamKraju.keySet().toArray();
                 for (Object iterator : nacteneKraje) {
-                    kontrola.setURL("http://hydro.chmi.cz/hpps/hpps_act_rain.php?day_offset=-1&fkraj="+seznamKraju.get((String)iterator).getWebidKraje());
+                    if(!kontrola.setURL("http://hydro.chmi.cz/hpps/hpps_act_rain.php?day_offset=-1&fkraj="+seznamKraju.get((String)iterator).getWebidKraje()))
+                        return false;
                     kontrola.naplnKraj(seznamKraju.get((String)iterator));
                 }
-                parser.exportToXML(seznamKraju, filename);
-                return null;
+                parserXML.exportToXML(seznamKraju, filename);
+                return true;
             }
         };
         statusBar.textProperty().bind(task.messageProperty());
         task.setOnSucceeded(e -> {
             statusBar.textProperty().unbind();
-            statusBar.setText("Konfigurační soubor úspěšně vytvořen.");
-            statusBar.setTextFill(Color.GREEN);
             disableControls(false);
-            loadTreeItems();
+            if(!task.getValue()) {
+                statusBar.setText("Chyba přístupu k URL!");
+                statusBar.setTextFill(Color.RED);
+            }
+            else {
+                statusBar.setText("Konfigurační soubor úspěšně vytvořen.");
+                statusBar.setTextFill(Color.GREEN);
+                loadTreeItems();
+            }
         });
         Thread thread = new Thread(task);
         thread.setDaemon(true);
@@ -150,7 +128,7 @@ public class HlavniOknoController implements Initializable {
             @Override public Boolean call() throws InterruptedException {
                 updateMessage("Kontrola seznamu stanic. Prosím vyčkejte!");
                 statusBar.setTextFill(Color.GREEN);
-                seznamKraju = parser.importFromXML(filename);
+                seznamKraju = parserXML.importFromXML(filename);
                 updatePocetStanic();
                 if(kontrola.setURL("http://hydro.chmi.cz/hpps/hpps_act_rain.php?day_offset=-1")) {
                     int webpocet = kontrola.isUpdateNeeded();
@@ -188,22 +166,44 @@ public class HlavniOknoController implements Initializable {
     
     @FXML
     private void bCSVExportPressed() {
-        LocalDate dateOd = dOd.getValue();
-        LocalDate dateDo = dDo.getValue();
-        LocalDate first = LocalDate.now().minusDays(6);
-        int dnuCelkem = Period.between(dateOd, dateDo).getDays();
-        int dnuOdPrvniho = Period.between(first, dateOd).getDays();
-        System.out.println(dnuCelkem);
-        System.out.println(dnuOdPrvniho);
-        CSVParser test = new CSVParser(nacteneStanice, dnuCelkem, dnuOdPrvniho, "test.csv");
-        test.csvExport();
+        if(seznamVybranychStanic.isEmpty()) {
+            statusBar.setText("Nevybrána žádná stanice!");
+            statusBar.setTextFill(Color.ORANGERED);
+            return;
+        }
+        else
+            statusBar.setTextFill(Color.GREEN);
+        nacteneStanice = new LinkedList<>();
+        generateStanice();
+        Task dataLoaderThread = new DataLoaderController(this, nacteneStanice);
+        statusBar.textProperty().bind(dataLoaderThread.messageProperty());
+        cKolo.setFill(Color.ORANGERED);
+        disableControls(true);
+        dataLoaderThread.setOnSucceeded(e -> {
+            statusBar.textProperty().unbind();
+            cKolo.setFill(Color.GREEN);
+            disableControls(false);
+            // this message will be seen.
+            statusBar.setText("Načítání dat proběhlo úspěšně");
+            statusBar.setTextFill(Color.GREEN);
+            LocalDate dateOd = dOd.getValue();
+            LocalDate dateDo = dDo.getValue();
+            LocalDate first = LocalDate.now().minusDays(6);
+            int dnuCelkem = Period.between(dateOd, dateDo).getDays();
+            int dnuOdPrvniho = Period.between(first, dateOd).getDays();
+            CSVParser parserCSV = new CSVParser(nacteneStanice, dnuCelkem, dnuOdPrvniho, "test.csv");
+            parserCSV.csvExport();
+        });
+        Thread thread = new Thread(dataLoaderThread);
+        thread.setDaemon(true);
+        thread.start();
     }
     
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         File configFile = new File(filename);
         if(configFile.exists() && configFile.isFile()) {
-            seznamKraju = parser.importFromXML(filename);
+            seznamKraju = parserXML.importFromXML(filename);
         }
         else {
             statusBar.setTextFill(Color.RED);
@@ -274,6 +274,8 @@ public class HlavniOknoController implements Initializable {
         tSeznam.setDisable(input);
         lVybrane.setDisable(input);
         bExport.setDisable(input);
+        dDo.setDisable(input);
+        dOd.setDisable(input);
     }
     
     private void generateStanice() {
