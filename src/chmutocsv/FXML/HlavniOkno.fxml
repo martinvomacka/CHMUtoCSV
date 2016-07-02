@@ -7,7 +7,7 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="483.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="chmutocsv.FXMLDocumentController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="483.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="chmutocsv.HlavniOknoController">
    <children>
       <Label fx:id="statusBar" layoutY="466.0" prefHeight="17.0" prefWidth="600.0" style="-fx-background-color: #bbbbbb;" />
       <TreeView fx:id="tSeznam" layoutY="24.0" prefHeight="442.0" prefWidth="204.0" />

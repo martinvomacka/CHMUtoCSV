@@ -11,7 +11,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Hyperlink;
 import javafx.stage.Stage;
 
-public class PopUpWindowController implements Initializable {
+public class OAplikaciController implements Initializable {
     /**
      * Tlačítko pro zavření okna.
      */

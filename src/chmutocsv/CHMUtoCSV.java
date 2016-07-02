@@ -14,9 +14,9 @@ public class CHMUtoCSV extends Application {
     
     @Override
     public void start(Stage stage) throws Exception {
-        FXMLLoader fxmlLoe = new FXMLLoader(getClass().getResource("FXMLDocument.fxml"));
+        FXMLLoader fxmlLoe = new FXMLLoader(getClass().getResource("FXML/HlavniOkno.fxml"));
         Parent root = fxmlLoe.load();
-        FXMLDocumentController myController = (FXMLDocumentController)fxmlLoe.getController();
+        HlavniOknoController myController = (HlavniOknoController)fxmlLoe.getController();
         myController.setParentApp(this);
         Scene scene = new Scene(root);
         stage.setScene(scene);

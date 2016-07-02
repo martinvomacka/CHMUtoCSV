@@ -45,14 +45,14 @@ import javafx.util.Callback;
  *
  * @author Vomec
  */
-public class FXMLDocumentController implements Initializable {
+public class HlavniOknoController implements Initializable {
     private final String filename = "config.xml";
     private HashMap<String, Kraj> seznamKraju;
     private Object nacteneKraje[];
     private int nactenyPocet;
     public ArrayList<String> seznamVybranychStanic;
     public static LinkedList<Stanice> nacteneStanice;
-    private final XMLParser parser = new XMLParser(this);
+    private final XMLParser parser = new XMLParser();
     private final Updater kontrola = new Updater();
     public ObservableList<String> ob;
     private Application parentApp;
@@ -146,29 +146,40 @@ public class FXMLDocumentController implements Initializable {
     @FXML
     private void checkUpdateButtonAction() {
         disableControls(true);
-        Task <Void> task = new Task<Void>() {
-            @Override public Void call() throws InterruptedException {
+        Task <Boolean> task = new Task<Boolean>() {
+            @Override public Boolean call() throws InterruptedException {
                 updateMessage("Kontrola seznamu stanic. Prosím vyčkejte!");
                 statusBar.setTextFill(Color.GREEN);
                 seznamKraju = parser.importFromXML(filename);
                 updatePocetStanic();
-                kontrola.setURL("http://hydro.chmi.cz/hpps/hpps_act_rain.php?day_offset=-1");
-                int webpocet = kontrola.isUpdateNeeded();
-                if(webpocet != nactenyPocet) {
-                    updateMessage("Je potřeba aktualizace seznamu stanic! Konfigurační soubor: "+nactenyPocet+" =/= Web ČHMÚ: "+webpocet);
-                    statusBar.setTextFill(Color.ORANGERED);
+                if(kontrola.setURL("http://hydro.chmi.cz/hpps/hpps_act_rain.php?day_offset=-1")) {
+                    int webpocet = kontrola.isUpdateNeeded();
+                    if(webpocet==-1)
+                        return false;
+                    else if(webpocet != nactenyPocet) {
+                        updateMessage("Je potřeba aktualizace seznamu stanic! Konfigurační soubor: "+nactenyPocet+" \u2260 Web ČHMÚ: "+webpocet);
+                        statusBar.setTextFill(Color.ORANGERED);
+                    }
+                    else {
+                        updateMessage("Seznam stanic je aktuální. Není potřeba aktualizace.");
+                        statusBar.setTextFill(Color.GREEN);
+                    }
+                    return true;
                 }
-                else {
-                    updateMessage("Seznam stanic je aktuální. Není potřeba aktualizace.");
-                    statusBar.setTextFill(Color.GREEN);
-                }
-                return null;
+                else
+                    return false;
             }
         };
         statusBar.textProperty().bind(task.messageProperty());
         task.setOnSucceeded(e -> {
             statusBar.textProperty().unbind();
             disableControls(false);
+            if(!task.getValue()) {
+                statusBar.textProperty().unbind();
+                statusBar.setText("Chyba přístupu k URL!");
+                statusBar.setTextFill(Color.RED);
+                disableControls(false);
+            }
         });
         Thread thread = new Thread(task);
         thread.setDaemon(true);
@@ -266,14 +277,12 @@ public class FXMLDocumentController implements Initializable {
     }
     
     private void generateStanice() {
-        int krajID;
         int staniceID;
         for (String seznamVybranychStanic1 : seznamVybranychStanic) {
             for (Object nacteneKraje1 : nacteneKraje) {
-                krajID = seznamKraju.get((String) nacteneKraje1).getWebidKraje();
                 staniceID = seznamKraju.get((String) nacteneKraje1).getStaniceWebid(seznamVybranychStanic1);
                 if (staniceID>=0) {
-                    nacteneStanice.add(new Stanice(seznamVybranychStanic1, staniceID, krajID));
+                    nacteneStanice.add(new Stanice(seznamVybranychStanic1, staniceID));
                     break;
                 }
             }
@@ -362,12 +371,12 @@ public class FXMLDocumentController implements Initializable {
             Stage stage = new Stage();
             FXMLLoader popUpLoader = new FXMLLoader();
             try {
-                popUpLoader.load(getClass().getResource("/chmutocsv/popUp.fxml").openStream());
+                popUpLoader.load(getClass().getResource("/chmutocsv/FXML/OAplikaci.fxml").openStream());
             } catch (IOException ex) {
-                Logger.getLogger(FXMLDocumentController.class.getName()).log(Level.SEVERE, null, ex);
+                Logger.getLogger(HlavniOknoController.class.getName()).log(Level.SEVERE, null, ex);
             }
             Parent root = popUpLoader.getRoot();
-            PopUpWindowController newCont = popUpLoader.getController();
+            OAplikaciController newCont = popUpLoader.getController();
             newCont.setParentApp(parentApp);
             stage.setScene(new Scene(root));
             stage.setTitle("O aplikaci");

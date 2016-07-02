@@ -94,6 +94,7 @@ public class Updater {
             webpagePlaintext.close();
         } catch (IOException ex) {
             Logger.getLogger(Updater.class.getName()).log(Level.SEVERE, null, ex);
+            return -1;
         }
         return actualValue;
     }

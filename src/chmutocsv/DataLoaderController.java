@@ -15,10 +15,10 @@ import javafx.concurrent.Task;
  * @author Vomec
  */
 public class DataLoaderController extends Task{
-    private final FXMLDocumentController parent;
+    private final HlavniOknoController parent;
     public final LinkedList<Stanice> seznamStanic;
 
-    public DataLoaderController(FXMLDocumentController inParent, LinkedList<Stanice> inSeznamStanic) {
+    public DataLoaderController(HlavniOknoController inParent, LinkedList<Stanice> inSeznamStanic) {
         this.parent = inParent;
         this.seznamStanic = inSeznamStanic;
     }

@@ -5,7 +5,6 @@ import java.io.IOException;
 import java.util.HashMap;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import javafx.scene.paint.Color;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
@@ -23,11 +22,6 @@ import org.w3c.dom.NodeList;
 import org.xml.sax.SAXException;
 
 public class XMLParser {
-    private final FXMLDocumentController parentLink;
-    
-    public XMLParser(FXMLDocumentController parent) {
-        this.parentLink=parent;
-    }
 
     public void exportToXML(HashMap<String, Kraj> data, String filename) {
         Object nazvyKraju[] = data.keySet().toArray();
@@ -51,7 +45,7 @@ public class XMLParser {
                 Element kraj = doc.createElement("kraj");
                 rootElement.appendChild(kraj);
                 // set attribute to kraj element
-                kraj.setAttribute("nazevKraje", (String) iterator);
+                kraj.setAttribute("nazevKraje", ((String) iterator).trim());
                 kraj.setAttribute("webidKraje", String.valueOf(data.get((String) iterator).getWebidKraje()));
 
                 Object nazvyStanic[] = data.get((String) iterator).getSeznam().keySet().toArray();
@@ -60,7 +54,7 @@ public class XMLParser {
                     Element stanice = doc.createElement("stanice");
                     kraj.appendChild(stanice);
                     // set attribute to stanice element
-                    stanice.setAttribute("nazevStanice", (String) nazev);
+                    stanice.setAttribute("nazevStanice", ((String) nazev).trim());
                     stanice.setAttribute("webidStanice", String.valueOf(data.get((String) iterator).getSeznam().get((String) nazev)));
                 }
             }
