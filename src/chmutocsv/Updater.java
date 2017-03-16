@@ -24,7 +24,7 @@ public class Updater {
     
     public HashMap<String, Kraj> updateKraje() {
         try {
-            BufferedReader webpagePlaintext = new BufferedReader(new InputStreamReader(webpage.openStream(), "CP1250"));
+            BufferedReader webpagePlaintext = new BufferedReader(new InputStreamReader(webpage.openStream(), "UTF-8"));
             String inputLine;
             String jmenoKraje;
             int webidKraje=0;
@@ -57,7 +57,7 @@ public class Updater {
     
     public void naplnKraj(Kraj naplit) {
         try {
-            BufferedReader webpagePlaintext = new BufferedReader(new InputStreamReader(webpage.openStream(), "CP1250"));
+            BufferedReader webpagePlaintext = new BufferedReader(new InputStreamReader(webpage.openStream(), "UTF-8"));
             String inputLine;
             String jmenoStanice;
             Integer webidStanice;
@@ -82,7 +82,7 @@ public class Updater {
     public int isUpdateNeeded() {
         int actualValue=0;
         try {
-            BufferedReader webpagePlaintext = new BufferedReader(new InputStreamReader(webpage.openStream(), "CP1250"));
+            BufferedReader webpagePlaintext = new BufferedReader(new InputStreamReader(webpage.openStream(), "UTF-8"));
             String inputLine;
             while ((inputLine = webpagePlaintext.readLine()) != null) {
                 if(inputLine.contains("Počet")) {
@@ -101,7 +101,7 @@ public class Updater {
     
     public void readValues(Stanice stanice) {
         try {
-            BufferedReader webpagePlaintext = new BufferedReader(new InputStreamReader(webpage.openStream(), "CP1250"));
+            BufferedReader webpagePlaintext = new BufferedReader(new InputStreamReader(webpage.openStream(), "UTF-8"));
             String inputLine;
             int i=0;
             int daylimit=7;

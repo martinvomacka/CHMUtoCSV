@@ -20,7 +20,7 @@ public class CHMUtoCSV extends Application {
         myController.setParentApp(this);
         Scene scene = new Scene(root);
         stage.setScene(scene);
-        stage.setTitle("ČHMÚ HPPS to CSV - ©Martin Vomáčka 2016");
+        stage.setTitle("ČHMÚ HPPS to CSV - ©Martin Vomáčka 2017");
         stage.getIcons().add(new Image(getClass().getResourceAsStream("cloud.png")));
         stage.show();
         stage.setOnCloseRequest(new EventHandler<WindowEvent>() {

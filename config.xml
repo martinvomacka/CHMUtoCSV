@@ -13,6 +13,15 @@
     <stanice nazevStanice="Dubicko" webidStanice="20706727"/>
     <stanice nazevStanice="Přerov" webidStanice="24928113"/>
     <stanice nazevStanice="Kozlov" webidStanice="307437"/>
+    <stanice nazevStanice="Velké Losiny" webidStanice="20706780"/>
+    <stanice nazevStanice="Dřevohostice" webidStanice="26847059"/>
+    <stanice nazevStanice="Protivanov" webidStanice="307443"/>
+    <stanice nazevStanice="Šternberk" webidStanice="20706789"/>
+    <stanice nazevStanice="Jeseník" webidStanice="307427"/>
+    <stanice nazevStanice="Vidnava" webidStanice="37680559"/>
+    <stanice nazevStanice="Zlaté Hory" webidStanice="26331433"/>
+    <stanice nazevStanice="Luká" webidStanice="307442"/>
+    <stanice nazevStanice="Štíty" webidStanice="37680417"/>
     <stanice nazevStanice="Paprsek" webidStanice="20706783"/>
   </kraj>
   <kraj nazevKraje="Jihočeský kraj" webidKraje="3561">
@@ -48,12 +57,12 @@
     <stanice nazevStanice="Pohorská Ves - Terčí Dvůr" webidStanice="307408"/>
     <stanice nazevStanice="Staré Hutě (okr. Č.Budějovice)" webidStanice="32324215"/>
     <stanice nazevStanice="Borkovice" webidStanice="20710612"/>
-    <stanice nazevStanice="Plechý" webidStanice="36454010"/>
     <stanice nazevStanice="Netřebice" webidStanice="36535755"/>
     <stanice nazevStanice="Nová Bystřice" webidStanice="20710573"/>
     <stanice nazevStanice="Český Krumlov - Přísečná" webidStanice="20710014"/>
     <stanice nazevStanice="Křemže, Mříč" webidStanice="20971861"/>
     <stanice nazevStanice="Hluboká nad Vltavou" webidStanice="26847395"/>
+    <stanice nazevStanice="Bučina u Kvildy" webidStanice="39068716"/>
     <stanice nazevStanice="Jindřichův Hradec - Děbolín" webidStanice="307410"/>
     <stanice nazevStanice="Chelčice" webidStanice="36535712"/>
     <stanice nazevStanice="Chlum u Třeboně" webidStanice="24803293"/>
@@ -178,6 +187,7 @@
     <stanice nazevStanice="Luby" webidStanice="36570725"/>
     <stanice nazevStanice="Žlutice" webidStanice="33922246"/>
     <stanice nazevStanice="Dyleň" webidStanice="20792693"/>
+    <stanice nazevStanice="Nejdek" webidStanice="38187087"/>
     <stanice nazevStanice="Klínovec" webidStanice="20792696"/>
     <stanice nazevStanice="Sokolov" webidStanice="36570598"/>
     <stanice nazevStanice="Šindelová (Obora)" webidStanice="307500"/>
@@ -192,27 +202,19 @@
     <stanice nazevStanice="Nové Město pod Smrkem" webidStanice="20311949"/>
     <stanice nazevStanice="Vysoké nad Jizerou" webidStanice="10053454"/>
     <stanice nazevStanice="Mimoň" webidStanice="20311931"/>
-    <stanice nazevStanice="Jizerka - Lasičí cesta" webidStanice="33001810"/>
     <stanice nazevStanice="Višňová" webidStanice="20311946"/>
-    <stanice nazevStanice="Bedřichov - Olivetská hora" webidStanice="20888340"/>
     <stanice nazevStanice="Holenice" webidStanice="20379900"/>
     <stanice nazevStanice="Křižany" webidStanice="20311905"/>
     <stanice nazevStanice="Mařenice" webidStanice="20311928"/>
-    <stanice nazevStanice="Kristiánov - Kamenice" webidStanice="37340318"/>
     <stanice nazevStanice="Jablonec nad Nisou" webidStanice="26299492"/>
     <stanice nazevStanice="Harrachov" webidStanice="23191202"/>
     <stanice nazevStanice="Český Dub, Modlibohov" webidStanice="10053451"/>
-    <stanice nazevStanice="Jizerka - Jizerská cesta" webidStanice="33001655"/>
     <stanice nazevStanice="Dvoračky" webidStanice="307401"/>
-    <stanice nazevStanice="Bedřichov - Tomšovka" webidStanice="33001615"/>
     <stanice nazevStanice="Bedřichov - přehrada" webidStanice="20018508"/>
     <stanice nazevStanice="Josefův Důl" webidStanice="27121384"/>
-    <stanice nazevStanice="Smědava - Knajpa" webidStanice="20149417"/>
     <stanice nazevStanice="Nový Bor" webidStanice="20311937"/>
-    <stanice nazevStanice="Bedřichov - Blatný rybník" webidStanice="37340327"/>
     <stanice nazevStanice="Nová Louka" webidStanice="307402"/>
     <stanice nazevStanice="Frýdlant" webidStanice="29955670"/>
-    <stanice nazevStanice="Smědava - U Jeřábu" webidStanice="20149414"/>
     <stanice nazevStanice="Hejnice" webidStanice="307429"/>
     <stanice nazevStanice="Jablonné v Podještědí" webidStanice="307510"/>
     <stanice nazevStanice="Smědava - klimatická stanice" webidStanice="27979289"/>
@@ -222,45 +224,47 @@
     <stanice nazevStanice="Zahrádky" webidStanice="20311943"/>
     <stanice nazevStanice="Desná, Souš" webidStanice="10053433"/>
     <stanice nazevStanice="Chotyně" webidStanice="37303340"/>
-    <stanice nazevStanice="Bílý potok - Polední kameny" webidStanice="20888674"/>
     <stanice nazevStanice="Doksy" webidStanice="307511"/>
-    <stanice nazevStanice="Jezdecká" webidStanice="20757820"/>
-    <stanice nazevStanice="Smědava - Kasárenská cesta" webidStanice="33001635"/>
+    <stanice nazevStanice="Roprachtice" webidStanice="38643354"/>
     <stanice nazevStanice="Jizerka - klimatická stanice" webidStanice="307399"/>
     <stanice nazevStanice="Turnov" webidStanice="28914914"/>
     <stanice nazevStanice="Studenec" webidStanice="20214435"/>
     <stanice nazevStanice="Česká Lípa" webidStanice="20018511"/>
+    <stanice nazevStanice="Semily" webidStanice="38733323"/>
   </kraj>
   <kraj nazevKraje="Ústecký kraj" webidKraje="8607">
     <stanice nazevStanice="Klíny" webidStanice="32936375"/>
     <stanice nazevStanice="Strojetice" webidStanice="21108057"/>
-    <stanice nazevStanice="Milešov" webidStanice="27678795"/>
-    <stanice nazevStanice="Kopisty" webidStanice="307507"/>
     <stanice nazevStanice="Milešovka" webidStanice="307506"/>
     <stanice nazevStanice="Tisá" webidStanice="20186002"/>
-    <stanice nazevStanice="Tokáň" webidStanice="20719059"/>
     <stanice nazevStanice="Varnsdorf" webidStanice="20311899"/>
+    <stanice nazevStanice="Šluknov" webidStanice="20189995"/>
+    <stanice nazevStanice="Doksany" webidStanice="307505"/>
+    <stanice nazevStanice="Sněžník" webidStanice="27668385"/>
+    <stanice nazevStanice="Ústí nad Labem, Vaňov" webidStanice="20884313"/>
+    <stanice nazevStanice="Ústí n. L.-Kočkov" webidStanice="307509"/>
+    <stanice nazevStanice="Mašťov" webidStanice="26212672"/>
+    <stanice nazevStanice="Teplice" webidStanice="307508"/>
+    <stanice nazevStanice="Milešov" webidStanice="27678795"/>
+    <stanice nazevStanice="Kopisty" webidStanice="307507"/>
+    <stanice nazevStanice="Tokáň" webidStanice="20719059"/>
     <stanice nazevStanice="Straškov-Vodochody" webidStanice="32927035"/>
     <stanice nazevStanice="Žatec" webidStanice="2539992"/>
     <stanice nazevStanice="Měděnec" webidStanice="20719055"/>
     <stanice nazevStanice="Petrovice, Krásný Les" webidStanice="37303618"/>
     <stanice nazevStanice="Smolnice" webidStanice="307504"/>
     <stanice nazevStanice="Verneřice" webidStanice="20311940"/>
+    <stanice nazevStanice="Hrob, Křižanov" webidStanice="24845176"/>
     <stanice nazevStanice="Tušimice" webidStanice="20311893"/>
-    <stanice nazevStanice="Doksany" webidStanice="307505"/>
-    <stanice nazevStanice="Sněžník" webidStanice="27668385"/>
     <stanice nazevStanice="Děčín" webidStanice="27668096"/>
-    <stanice nazevStanice="Ústí nad Labem, Vaňov" webidStanice="20884313"/>
     <stanice nazevStanice="Nová Ves v Horách" webidStanice="20311896"/>
-    <stanice nazevStanice="Ústí n. L.-Kočkov" webidStanice="307509"/>
-    <stanice nazevStanice="Mašťov" webidStanice="26212672"/>
-    <stanice nazevStanice="Teplice" webidStanice="307508"/>
   </kraj>
   <kraj nazevKraje="Královéhradecký kraj" webidKraje="10838">
     <stanice nazevStanice="Úpice" webidStanice="307380"/>
     <stanice nazevStanice="Pomezní boudy, Horní Malá Úpa" webidStanice="307379"/>
     <stanice nazevStanice="Rychnov nad Kněžnou" webidStanice="307386"/>
     <stanice nazevStanice="Vrchlabí" webidStanice="2659111"/>
+    <stanice nazevStanice="Bílý Újezd, Hroška" webidStanice="38198949"/>
     <stanice nazevStanice="Holovousy" webidStanice="20639735"/>
     <stanice nazevStanice="Broumov" webidStanice="307425"/>
     <stanice nazevStanice="Labská bouda" webidStanice="307377"/>
@@ -268,6 +272,7 @@
     <stanice nazevStanice="Slatiny, Milíčeves" webidStanice="27189623"/>
     <stanice nazevStanice="Luční bouda" webidStanice="20293175"/>
     <stanice nazevStanice="Pec pod Sněžkou" webidStanice="307378"/>
+    <stanice nazevStanice="Hostinné" webidStanice="38187433"/>
     <stanice nazevStanice="Police nad Metují" webidStanice="2659105"/>
     <stanice nazevStanice="Slatina nad Zdobnicí" webidStanice="307384"/>
     <stanice nazevStanice="Adršpach - Horní Adršpach" webidStanice="307381"/>
@@ -276,11 +281,13 @@
     <stanice nazevStanice="Lázně Bělohrad" webidStanice="20711233"/>
     <stanice nazevStanice="Rokytnice v Orlic.horách" webidStanice="307383"/>
     <stanice nazevStanice="Borohrádek" webidStanice="20905769"/>
+    <stanice nazevStanice="Česká Skalice, Rozkoš" webidStanice="38186947"/>
     <stanice nazevStanice="Jičín" webidStanice="307397"/>
     <stanice nazevStanice="Nový Bydžov" webidStanice="2659103"/>
     <stanice nazevStanice="Olešnice v Orl. horách" webidStanice="20639875"/>
     <stanice nazevStanice="Horní Maršov" webidStanice="2659091"/>
     <stanice nazevStanice="Velichovky" webidStanice="307382"/>
+    <stanice nazevStanice="Dolní Dvůr, Rudolfov" webidStanice="38187303"/>
     <stanice nazevStanice="České Meziříčí" webidStanice="20639883"/>
     <stanice nazevStanice="Luisino údolí, Deštné v Orl. horách" webidStanice="27289729"/>
     <stanice nazevStanice="Deštné v Orlic. horách" webidStanice="307385"/>
@@ -323,6 +330,7 @@
     <stanice nazevStanice="Horšovský Týn" webidStanice="26210492"/>
     <stanice nazevStanice="Chanovice" webidStanice="32213035"/>
     <stanice nazevStanice="Železná Ruda - Hojsova Stráž" webidStanice="2724205"/>
+    <stanice nazevStanice="Vlkonice" webidStanice="22755527"/>
     <stanice nazevStanice="Plzeň - Mikulka" webidStanice="307491"/>
     <stanice nazevStanice="Kralovice" webidStanice="307495"/>
   </kraj>
@@ -399,6 +407,7 @@
     <stanice nazevStanice="Dyjákovice" webidStanice="307452"/>
   </kraj>
   <kraj nazevKraje="Pardubický kraj" webidKraje="12303">
+    <stanice nazevStanice="Orličky" webidStanice="38187545"/>
     <stanice nazevStanice="Ústí n. O." webidStanice="307388"/>
     <stanice nazevStanice="Skuteč" webidStanice="2659109"/>
     <stanice nazevStanice="Hradec nad Svitavou" webidStanice="20063614"/>
