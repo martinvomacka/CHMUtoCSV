@@ -191,7 +191,7 @@ public class HlavniOknoController implements Initializable {
             LocalDate first = LocalDate.now().minusDays(6);
             int dnuCelkem = Period.between(dateOd, dateDo).getDays();
             int dnuOdPrvniho = Period.between(first, dateOd).getDays();
-            CSVParser parserCSV = new CSVParser(nacteneStanice, dnuCelkem, dnuOdPrvniho, "test.csv");
+            CSVParser parserCSV = new CSVParser(nacteneStanice, dnuCelkem, dnuOdPrvniho, "export.csv");
             parserCSV.csvExport();
         });
         Thread thread = new Thread(dataLoaderThread);
