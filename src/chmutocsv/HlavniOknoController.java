@@ -32,6 +32,7 @@ import javafx.scene.control.DatePicker;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
 import javafx.scene.control.Menu;
+import javafx.scene.control.MenuItem;
 import javafx.scene.control.TreeItem;
 import javafx.scene.control.TreeView;
 import javafx.scene.paint.Color;
@@ -77,6 +78,8 @@ public class HlavniOknoController implements Initializable {
     public Menu menu1;
     @FXML
     public Menu menu2;
+    @FXML
+    public MenuItem checkUpdateMenuButton;
     @FXML
     public TreeView<String> tSeznam;
     @FXML
@@ -276,6 +279,7 @@ public class HlavniOknoController implements Initializable {
         bExport.setDisable(input);
         dDo.setDisable(input);
         dOd.setDisable(input);
+        checkUpdateMenuButton.setDisable(input);
     }
     
     private void generateStanice() {

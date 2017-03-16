@@ -19,7 +19,7 @@
         <menus>
           <Menu fx:id="menu1" mnemonicParsing="false" text="Menu">
             <items>
-              <MenuItem mnemonicParsing="false" onAction="#checkUpdateButtonAction" text="Kontrola stanic" />
+              <MenuItem fx:id="checkUpdateMenuButton" mnemonicParsing="false" onAction="#checkUpdateButtonAction" text="Kontrola stanic" />
                   <MenuItem mnemonicParsing="false" onAction="#updateButtonAction" text="Aktualizace stanic" />
                   <MenuItem mnemonicParsing="false" onAction="#closeApp" text="Ukončit aplikaci" />
             </items>
