@@ -118,6 +118,7 @@ public class HlavniOknoController implements Initializable {
                 statusBar.setText("Konfigurační soubor úspěšně vytvořen.");
                 statusBar.setTextFill(Color.GREEN);
                 loadTreeItems();
+                seznamVybranychStanic = new ArrayList<>();
             }
         });
         Thread thread = new Thread(task);
