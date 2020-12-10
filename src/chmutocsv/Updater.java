@@ -28,23 +28,24 @@ public class Updater {
             String inputLine;
             String jmenoKraje;
             int webidKraje=0;
-            boolean loadnext=false;
             HashMap<String, Kraj> temp = new HashMap<>();
             while ((inputLine = webpagePlaintext.readLine()) != null) {
-                if(inputLine.contains("<option value=\"\" >&nbsp;</option>"))
-                    continue;
-                if(inputLine.contains("option value=")) {
-                    inputLine=inputLine.substring(15);
-                    webidKraje=Integer.parseInt(inputLine.substring(0,inputLine.indexOf("\"")));
-                    loadnext=true;
+                if(inputLine.contains("select name=\"fkraj\"")) {
+                    inputLine=inputLine.substring(108);
+                    //System.out.println(inputLine);
+                    for (int ptr=0; ptr<14; ptr++) {
+                        inputLine=inputLine.substring(inputLine.indexOf("\"")+1);
+                        //System.out.println(inputLine);
+                        webidKraje=Integer.parseInt(inputLine.substring(0,inputLine.indexOf("\"")));
+                        //System.out.println(webidKraje);
+                        inputLine=inputLine.substring(inputLine.indexOf(">")+1);
+                        jmenoKraje=inputLine.substring(0,inputLine.indexOf("<"));
+                        //System.out.println(jmenoKraje);
+                        temp.put(jmenoKraje, new Kraj(webidKraje));
+                    }
                     continue;
                 }
-                if(loadnext) {
-                    jmenoKraje=inputLine.substring(0,inputLine.indexOf("<"));
-                    loadnext=false;
-                    temp.put(jmenoKraje, new Kraj(webidKraje));
-                }
-                if(inputLine.contains("td id=\"fpob\""))
+                if(inputLine.contains("select name=\"fkraj\""))
                     break;
             }
             webpagePlaintext.close();
@@ -86,7 +87,8 @@ public class Updater {
             String inputLine;
             while ((inputLine = webpagePlaintext.readLine()) != null) {
                 if(inputLine.contains("Počet")) {
-                    inputLine=inputLine.substring(inputLine.indexOf(":")+7);
+                    inputLine=inputLine.substring(inputLine.indexOf("záznamů")+15);
+                    //System.out.println(inputLine);
                     actualValue=Integer.parseInt(inputLine.substring(0, inputLine.indexOf("<")));
                     break;
                 }

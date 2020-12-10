@@ -91,6 +91,7 @@ public class HlavniOknoController implements Initializable {
         Task <Boolean> task = new Task<Boolean>() {
             @Override public Boolean call() throws InterruptedException {
                 updateMessage("Probíhá aktualizace seznamu stanic. Prosím vyčkejte!");
+                //System.out.println("Start");
                 statusBar.setTextFill(Color.GREEN);
                 if(!kontrola.setURL("http://hydro.chmi.cz/hpps/hpps_act_rain.php?day_offset=-1"))
                     return false;
