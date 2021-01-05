@@ -15,7 +15,7 @@ public class DataLoaderThread extends Thread{
     public void run() {
         //System.out.println("http://hydro.chmi.cz/hpps/hpps_srzstationdyn.php?seq="+String.valueOf(stanice.getWebidStanice()));
         Updater web = new Updater();
-        web.setURL("http://hydro.chmi.cz/hpps/hpps_srzstationdyn.php?seq="+String.valueOf(stanice.getWebidStanice()));
+        web.setURL("https://hydro.chmi.cz/hpps/hpps_srzstationdyn.php?seq="+String.valueOf(stanice.getWebidStanice()));
         web.readValues(stanice);
     }
 }

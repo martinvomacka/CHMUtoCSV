@@ -93,12 +93,12 @@ public class HlavniOknoController implements Initializable {
                 updateMessage("Probíhá aktualizace seznamu stanic. Prosím vyčkejte!");
                 //System.out.println("Start");
                 statusBar.setTextFill(Color.GREEN);
-                if(!kontrola.setURL("http://hydro.chmi.cz/hpps/hpps_act_rain.php?day_offset=-1"))
+                if(!kontrola.setURL("https://hydro.chmi.cz/hpps/hpps_act_rain.php?day_offset=-1"))
                     return false;
                 seznamKraju=kontrola.updateKraje();
                 nacteneKraje = seznamKraju.keySet().toArray();
                 for (Object iterator : nacteneKraje) {
-                    if(!kontrola.setURL("http://hydro.chmi.cz/hpps/hpps_act_rain.php?day_offset=-1&fkraj="+seznamKraju.get((String)iterator).getWebidKraje()))
+                    if(!kontrola.setURL("https://hydro.chmi.cz/hpps/hpps_act_rain.php?day_offset=-1&fkraj="+seznamKraju.get((String)iterator).getWebidKraje()))
                         return false;
                     kontrola.naplnKraj(seznamKraju.get((String)iterator));
                 }
@@ -135,7 +135,7 @@ public class HlavniOknoController implements Initializable {
                 statusBar.setTextFill(Color.GREEN);
                 seznamKraju = parserXML.importFromXML(filename);
                 updatePocetStanic();
-                if(kontrola.setURL("http://hydro.chmi.cz/hpps/hpps_act_rain.php?day_offset=-1")) {
+                if(kontrola.setURL("https://hydro.chmi.cz/hpps/hpps_act_rain.php?day_offset=-1")) {
                     int webpocet = kontrola.isUpdateNeeded();
                     if(webpocet==-1)
                         return false;
