@@ -65,7 +65,7 @@ public class Updater {
             while ((inputLine = webpagePlaintext.readLine()) != null) {
                 if(inputLine.contains("popUpWindow('hpps_srzstationdyn.php")) {
                     inputLine=inputLine.substring(inputLine.indexOf("seq=")+4);
-                    webidStanice=Integer.decode(inputLine.substring(0, inputLine.indexOf("&")));
+                    webidStanice=Integer.decode(inputLine.substring(0, inputLine.indexOf("\'")));
                     inputLine=inputLine.substring(inputLine.indexOf(">")+1);
                     jmenoStanice=inputLine.substring(0, inputLine.indexOf("<"));
                     naplit.vlozitStanici(jmenoStanice, webidStanice);
